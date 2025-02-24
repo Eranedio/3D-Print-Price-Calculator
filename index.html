@@ -111,29 +111,35 @@
   <script>
     // Data from your Excel file
     const materialPrices = {
-      PLA: { 0.28: 400, 0.20: 450, 0.16: 550, 0.12: 700 },
-      PETG: { 0.28: 500, 0.20: 550, 0.16: 650, 0.12: 800 }
-    };
+  PLA: { 0.28: 400, 0.20: 450, 0.16: 550, 0.12: 700 },
+  PETG: { 0.28: 500, 0.20: 550, 0.16: 650, 0.12: 800 }
+};
 
-    function calculatePrice() {
-      // Get user inputs
-      const weight = parseFloat(document.getElementById('weight').value);
-      const material = document.getElementById('material').value;
-      const resolution = document.getElementById('resolution').value;
+function calculatePrice() {
+  // Get user inputs
+  const weight = parseFloat(document.getElementById('weight').value);
+  const material = document.getElementById('material').value;
+  const resolution = document.getElementById('resolution').value;
 
-      // Validate weight
-      if (isNaN(weight) || weight <= 0) {
-        alert("Please enter a valid weight.");
-        return;
-      }
+  // Validate weight
+  if (isNaN(weight) {
+    alert("Please enter a valid weight.");
+    return;
+  }
 
-      // Calculate total price
-      const pricePerGram = materialPrices[material][resolution];
-      const totalPrice = (weight * pricePerGram).toFixed(2);
+  // Check if material and resolution are valid
+  if (!materialPrices[material] || !materialPrices[material][resolution]) {
+    alert("Invalid material or resolution selected.");
+    return;
+  }
 
-      // Display result
-      document.getElementById('result').innerText = `Total Price: Rp${totalPrice}`;
-    }
+  // Calculate total price
+  const pricePerGram = materialPrices[material][resolution];
+  const totalPrice = (weight * pricePerGram).toFixed(2);
+
+  // Display result
+  document.getElementById('result').innerText = `Total Price: Rp${totalPrice}`;
+}
   </script>
 </body>
 </html>
