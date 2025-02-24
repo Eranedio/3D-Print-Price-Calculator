@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Printing Price Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, button { padding: 8px; width: 100%; max-width: 300px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>3D Printing Price Calculator</h1>
+  <form id="priceCalculator">
+    <label for="weight">Weight (grams):</label>
+    <input type="number" id="weight" step="0.1" required>
+
+    <label for="material">Material:</label>
+    <select id="material" required>
+      <option value="PLA">PLA</option>
+      <option value="PETG">PETG</option>
+    </select>
+
+    <label for="resolution">Resolution (mm):</label>
+    <select id="resolution" required>
+      <option value="0.12">0.12</option>
+      <option value="0.16">0.16</option>
+      <option value="0.20">0.20</option>
+      <option value="0.28">0.28</option>
+    </select>
+
+    <button type="button" onclick="calculatePrice()">Calculate Price</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    // Data from your Excel file
+    const materialPrices = {
+      PLA: { 0.28: 400, 0.20: 450, 0.16: 550, 0.12: 700 },
+      PETG: { 0.28: 500, 0.20: 550, 0.16: 650, 0.12: 800 }
+    };
+
+    function calculatePrice() {
+      // Get user inputs
+      const weight = parseFloat(document.getElementById('weight').value);
+      const material = document.getElementById('material').value;
+      const resolution = document.getElementById('resolution').value;
+
+      // Validate weight
+      if (isNaN(weight) || weight <= 0) {
+        alert("Please enter a valid weight.");
+        return;
+      }
+
+      // Calculate total price
+      const pricePerGram = materialPrices[material][resolution];
+      const totalPrice = (weight * pricePerGram).toFixed(2);
+
+      // Display result
+      document.getElementById('result').innerText = `Total Price: Rp${totalPrice}`;
+    }
+  </script>
+</body>
+</html>
